@@ -12,11 +12,12 @@
   ],
   "autoload": {
     "psr-0": {
-      "haydenk\\": "src/main/php/"
+      "haydenk\\ComposerInstaller\\": "src/main/php/",
+      "haydenk\\ComposerPlugin\\": "src/main/php/"
     }
   },
   "extra": {
-    "class": "haydenk\\ComposerInstaller\\WordPressCorePlugin"
+    "class": "haydenk\\ComposerPlugin\\WordPressCorePlugin"
   },
   "require": {
     "composer-plugin-api": "^1.1"
