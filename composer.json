@@ -1,0 +1,33 @@
+{
+  "name": "haydenk/wordpress-core-installer",
+  "description": "A custom installer to handle deploying WordPress with composer",
+  "type": "composer-plugin",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Hayden King",
+      "email": "hayden.king@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "haydenk\\ComposerInstaller\\": "src/main/php/",
+      "haydenk\\ComposerPlugin\\": "src/main/php/"
+    }
+  },
+  "extra": {
+    "class": "haydenk\\ComposerInstaller\\WordPressCorePlugin"
+  },
+  "require": {
+    "composer-plugin-api": "^1.1"
+  },
+  "require-dev": {
+    "composer/composer": "^1.2",
+    "phpunit/phpunit": "^5.5",
+    "phpunit/php-invoker": "^1.1"
+  },
+  "conflict": {
+    "composer/installers": "<1.0.6"
+  }
+}
