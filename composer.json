@@ -12,8 +12,7 @@
   ],
   "autoload": {
     "psr-0": {
-      "haydenk\\ComposerInstaller\\": "src/main/php/",
-      "haydenk\\ComposerPlugin\\": "src/main/php/"
+      "haydenk\\": "src/main/php/"
     }
   },
   "extra": {
