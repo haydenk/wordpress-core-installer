@@ -7,11 +7,25 @@ This is a [custom Composer installer](http://getcomposer.org/doc/articles/custom
 To set up a custom WordPress build package to use this as a custom installer, add the following to your package's composer file:
 
 ```
-"type": "wordpress-core",
+"repositories": [
+    {
+        "type": "package",
+        "package": {
+            "name": "wordpress/wordpress",
+            "type": "wordpress-core",
+            "version": "4.6.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/WordPress/WordPress/archive/4.6.1.zip"
+            }
+        }
+    }
+],
 "require": {
+    "wordpress/wordpress": "4.6.1",
     "haydenk/wordpress-core-installer": "^0.1"
 },
-"extra": {
+"extra" : {
     "wordpress-install-dir": {
         "wordpress/wordpress": "wp"
     }

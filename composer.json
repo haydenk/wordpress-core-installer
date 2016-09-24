@@ -17,7 +17,7 @@
     }
   },
   "extra": {
-    "class": "haydenk\\ComposerInstaller\\WordPressCorePlugin"
+    "class": "haydenk\\ComposerPlugin\\WordPressCorePlugin"
   },
   "require": {
     "composer-plugin-api": "^1.1"

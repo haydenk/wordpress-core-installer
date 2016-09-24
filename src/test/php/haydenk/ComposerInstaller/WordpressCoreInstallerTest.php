@@ -7,6 +7,7 @@ use Composer\Installer\LibraryInstaller;
 use Composer\IO\NullIO;
 use Composer\Package\Loader\InvalidPackageException;
 use Composer\Package\Package;
+use Composer\Package\RootPackage;
 use Composer\Util\Filesystem;
 
 class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
@@ -15,6 +16,11 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
      * @var WordpressCoreInstaller
      */
     private $installer;
+
+    /**
+     * @var Composer
+     */
+    private $composer;
 
     /**
      * @var Filesystem
@@ -29,13 +35,15 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->fs = new Filesystem();
-        $composer = new Composer();
+        $this->composer = new Composer();
+        $rootPackage = new RootPackage('haydenk/wordpress-test-package', '1.0', '1.0');
+        $this->composer->setPackage($rootPackage);
         $io = new NullIO();
         $this->vendorDir = __DIR__.'/vendor';
         $config = new Config();
         $config->merge(['config' => ['vendor-dir' => $this->vendorDir]]);
-        $composer->setConfig($config);
-        $this->installer = new WordpressCoreInstaller($io, $composer);
+        $this->composer->setConfig($config);
+        $this->installer = new WordpressCoreInstaller($io, $this->composer);
         $this->fs->ensureDirectoryExists($this->vendorDir);
     }
 
@@ -64,11 +72,11 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
     {
         $pkg = new Package($packageName, '4.6.1', '4.6.1');
         if($hasExtra) {
-            $pkg->setExtra([
+            $this->composer->getPackage()->setExtra([
                 'wordpress-install-dir' => [
                     'wordpress/wordpress' => 'wp',
                     'haydenk/wordpress' => 'hk-wp',
-                ],
+                ]
             ]);
         } else {
             $expectedInstallPath = realpath($this->vendorDir) . '/' . $packageName;
@@ -95,7 +103,7 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidPackageException::class);
 
         $pkg = new Package($packageName, '4.6.1', '4.6.1');
-        $pkg->setExtra([
+        $this->composer->getPackage()->setExtra([
             'wordpress-install-dir' => [
                 'wordpress/wordpress' => 'wp',
                 'haydenk/wordpress' => 'wp',
@@ -118,7 +126,7 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidPackageException::class);
 
         $pkg = new Package('wordpress/wordpress', '4.6.1', '4.6.1');
-        $pkg->setExtra([
+        $this->composer->getPackage()->setExtra([
             'wordpress-install-dir' => 'wordpress/wordpress',
         ]);
 
@@ -130,7 +138,7 @@ class WordpressCoreInstallerTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidPackageException::class);
 
         $pkg = new Package('wordpress/wordpress', '4.6.1', '4.6.1');
-        $pkg->setExtra([
+        $this->composer->getPackage()->setExtra([
             'wordpress-install-dir' => ['wordpress/wordpress'],
         ]);
 
