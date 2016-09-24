@@ -17,7 +17,7 @@ class WordpressCoreInstaller extends LibraryInstaller
     public function getInstallPath(PackageInterface $package)
     {
         $packageName = $package->getPrettyName();
-        $packageExtra = $package->getExtra();
+        $packageExtra = $this->composer->getPackage()->getExtra();
 
         if(false === array_key_exists('wordpress-install-dir', $packageExtra)) {
             return parent::getInstallPath($package);
