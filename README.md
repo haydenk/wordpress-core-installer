@@ -23,7 +23,7 @@ To set up a custom WordPress build package to use this as a custom installer, ad
 ],
 "require": {
     "wordpress/wordpress": "4.6.1",
-    "haydenk/wordpress-core-installer": "^0.1"
+    "haydenk/wordpress-core-installer": "^0.2"
 },
 "extra" : {
     "wordpress-install-dir": {
